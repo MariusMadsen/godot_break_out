@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://cyseyeadk0obt"]
+
+[ext_resource type="PackedScene" uid="uid://bq6t4nhvfjaxq" path="res://scenes/paddle.tscn" id="1_0otpf"]
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_25wc2"]
+[ext_resource type="PackedScene" uid="uid://duduucg3636h3" path="res://scenes/ball.tscn" id="3_vjlgv"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ifqyi"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qt1jo"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yw4gl"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_25wc2")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Node"]
+position = Vector2(1926, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/StaticBody2D2"]
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_ifqyi")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Node"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/StaticBody2D3"]
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_qt1jo")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/StaticBody2D"]
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_yw4gl")
+
+[node name="Paddle" parent="." instance=ExtResource("1_0otpf")]
+position = Vector2(927, 1069)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Ball" parent="." instance=ExtResource("3_vjlgv")]
+position = Vector2(916, 881)
+
+[node name="Bricks" type="Node" parent="."]
+
+[connection signal="shoot" from="Paddle" to="." method="_on_paddle_shoot"]
