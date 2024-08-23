@@ -1,12 +1,14 @@
 extends CharacterBody2D
 
-const SPEED_Y := 100000
+const SPEED_Y := 50000
 const MAX_X_SPEED := 50000.0
 var speed_x := 0.0
 var x_dir := 0
 var y_dir := -1
 
 var shot = false
+
+signal ballOut
 
 func _ready():
 	set_speed()
@@ -30,10 +32,19 @@ func _physics_process(delta):
 	if (is_on_wall()):
 		speed_x *= -1
 	velocity = Vector2(speed_x*delta*x_dir, SPEED_Y*delta*y_dir)
-	
+
 	move_and_slide()
-	
-	
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		print("Collided with: ", collision.get_collider().name)
+		var collider = collision.get_collider()
+		if (collider.has_method("hit")):
+			collider.hit()
+
+	if (position.y > get_viewport_rect().size.y):
+		print("Ball is out of bounds")
+		shot = false
+		ballOut.emit()
 
 func shoot(paddleVelocity):
 	shot = true

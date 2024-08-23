@@ -27,6 +27,7 @@ func build_the_wall():
 			
 			var instance = brick_scene.instantiate()
 			instance.position = Vector2((80 + x_offset) + (i*160), 35+(70*j))
+			
 			bricks.add_child(instance)
 	
 
@@ -38,3 +39,8 @@ func _physics_process(delta):
 func _on_paddle_shoot():
 	ballShot = true
 	ball.shoot(paddle.velocity)
+
+
+func _on_ball_ball_out():
+	ballShot = false
+	paddle.reset()
