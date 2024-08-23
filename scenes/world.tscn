@@ -45,3 +45,4 @@ position = Vector2(916, 881)
 [node name="Bricks" type="Node" parent="."]
 
 [connection signal="shoot" from="Paddle" to="." method="_on_paddle_shoot"]
+[connection signal="ballOut" from="Ball" to="." method="_on_ball_ball_out"]
