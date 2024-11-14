@@ -24,6 +24,7 @@ shader_parameter/offset = -0.067
 script = ExtResource("1_25wc2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture_repeat = 2
 material = SubResource("ShaderMaterial_86r31")
 position = Vector2(968, 962)
@@ -58,6 +59,14 @@ position = Vector2(927, 1069)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Healthbar" parent="CanvasLayer" instance=ExtResource("5_4tfye")]
+
+[node name="ScoreLabel" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 15.0
+offset_top = 1034.0
+offset_right = 322.0
+offset_bottom = 1057.0
+text = "Score: 0
+"
 
 [node name="Ball" parent="." instance=ExtResource("3_vjlgv")]
 position = Vector2(916, 881)

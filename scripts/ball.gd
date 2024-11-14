@@ -23,7 +23,6 @@ func _physics_process(delta):
 		return
 		
 	if (is_on_ceiling()):
-		print("glass ceiling?")
 		y_dir = 1
 	elif (is_on_floor()):
 		y_dir = -1
@@ -36,7 +35,6 @@ func _physics_process(delta):
 	move_and_slide()
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
-		print("Collided with: ", collision.get_collider().name)
 		var collider = collision.get_collider()
 		if (collider.has_method("hit")):
 			collider.hit()

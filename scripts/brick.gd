@@ -3,6 +3,10 @@ extends StaticBody2D
 @onready var sprite_2d = $Sprite2D
 @onready var shader = preload("res://shaders/brick.gdshader")
 
+signal brick_hit
+
+var _score := 0
+
 var h := 0.0
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,4 +28,9 @@ func _process(delta):
 	sprite_2d.material.set("shader_parameter/rgb", Vector3(color.r, color.g, color.b))
 
 func hit():
+	print("I am hit")
+	brick_hit.emit(_score)
 	queue_free()
+	
+func setScoreMultiplier(score):
+	_score = score

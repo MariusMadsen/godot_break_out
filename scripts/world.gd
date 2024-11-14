@@ -1,4 +1,5 @@
 extends Node2D
+@onready var score_label = $CanvasLayer/ScoreLabel
 
 @onready var healthbar = $CanvasLayer/Healthbar
 @onready var paddle = $Paddle
@@ -7,6 +8,7 @@ extends Node2D
 @onready var brick_scene = preload("res://scenes/brick.tscn")
 var ballShot = false
 var health := 3
+var score := 0
 
 const BRICK_SIZE = Vector2(160, 70)
 
@@ -29,7 +31,8 @@ func build_the_wall():
 			
 			var instance = brick_scene.instantiate()
 			instance.position = Vector2((80 + x_offset) + (i*160), 35+(70*j))
-			
+			instance.setScoreMultiplier(abs(-10+j))
+			instance.connect("brick_hit", _on_brick_hit)
 			bricks.add_child(instance)
 	
 
@@ -53,3 +56,7 @@ func _on_ball_ball_out():
 		return
 	paddle.reset()
 	ball.global_position = paddle.global_position + Vector2(0, -25)
+
+func _on_brick_hit(scoreMultiplier):
+	score = score + 5*scoreMultiplier
+	score_label.text = "Score: " + str(score)
