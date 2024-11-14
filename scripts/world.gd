@@ -1,10 +1,12 @@
 extends Node2D
 
+@onready var healthbar = $CanvasLayer/Healthbar
 @onready var paddle = $Paddle
 @onready var ball = $Ball
 @onready var bricks = $Bricks
 @onready var brick_scene = preload("res://scenes/brick.tscn")
 var ballShot = false
+var health := 3
 
 const BRICK_SIZE = Vector2(160, 70)
 
@@ -43,4 +45,11 @@ func _on_paddle_shoot():
 
 func _on_ball_ball_out():
 	ballShot = false
+	health = health - 1
+	healthbar.take_damage()
+	if (health <= 0):
+		print("oh no you dead!")
+		paddle.die()
+		return
 	paddle.reset()
+	ball.global_position = paddle.global_position + Vector2(0, -25)

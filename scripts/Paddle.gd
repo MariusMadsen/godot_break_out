@@ -6,10 +6,14 @@ const PADDLE_LENGTH = 160
 
 signal shoot
 
+var dead := false;
+
 func _ready():
 	reset()
 
 func _physics_process(delta):
+	if (dead):
+		return
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("ui_left", "ui_right")
@@ -26,3 +30,5 @@ func _physics_process(delta):
 func reset():
 	position.x = get_viewport_rect().size.x/2
 	
+func die():
+	dead = true;

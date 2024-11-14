@@ -8,7 +8,7 @@ var y_dir := -1
 
 var shot = false
 
-signal ballOut
+signal ball_out
 
 func _ready():
 	set_speed()
@@ -44,7 +44,7 @@ func _physics_process(delta):
 	if (position.y > get_viewport_rect().size.y):
 		print("Ball is out of bounds")
 		shot = false
-		ballOut.emit()
+		ball_out.emit()
 
 func shoot(paddleVelocity):
 	shot = true

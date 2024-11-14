@@ -1,8 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://cyseyeadk0obt"]
+[gd_scene load_steps=11 format=3 uid="uid://cyseyeadk0obt"]
 
 [ext_resource type="PackedScene" uid="uid://bq6t4nhvfjaxq" path="res://scenes/paddle.tscn" id="1_0otpf"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_25wc2"]
+[ext_resource type="Shader" path="res://shaders/background.gdshader" id="2_hdn6p"]
+[ext_resource type="Texture2D" uid="uid://brvjvw0hp3b8j" path="res://sprites/background.png" id="2_r6v8y"]
 [ext_resource type="PackedScene" uid="uid://duduucg3636h3" path="res://scenes/ball.tscn" id="3_vjlgv"]
+[ext_resource type="PackedScene" uid="uid://ew1mehev2pie" path="res://scenes/healthbar.tscn" id="5_4tfye"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_86r31"]
+shader = ExtResource("2_hdn6p")
+shader_parameter/tiling = Vector2(20, 15)
+shader_parameter/direction = Vector2(1, 1)
+shader_parameter/squash = 0.011
+shader_parameter/offset = -0.067
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ifqyi"]
 
@@ -12,6 +22,14 @@
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_25wc2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_86r31")
+position = Vector2(968, 962)
+scale = Vector2(14.9688, 14.9688)
+texture = ExtResource("2_r6v8y")
+region_rect = Rect2(0, 0, 1920, 1080)
 
 [node name="Node" type="Node" parent="."]
 
@@ -39,10 +57,12 @@ position = Vector2(927, 1069)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="Healthbar" parent="CanvasLayer" instance=ExtResource("5_4tfye")]
+
 [node name="Ball" parent="." instance=ExtResource("3_vjlgv")]
 position = Vector2(916, 881)
 
 [node name="Bricks" type="Node" parent="."]
 
 [connection signal="shoot" from="Paddle" to="." method="_on_paddle_shoot"]
-[connection signal="ballOut" from="Ball" to="." method="_on_ball_ball_out"]
+[connection signal="ball_out" from="Ball" to="." method="_on_ball_ball_out"]

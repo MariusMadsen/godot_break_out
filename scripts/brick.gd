@@ -18,7 +18,7 @@ func _process(delta):
 		h = 0.0
 		
 	else:
-		h += 0.01
+		h += 1*delta
 		
 	var color := Color.from_hsv(h, 1, 1, 1)
 	sprite_2d.material.set("shader_parameter/rgb", Vector3(color.r, color.g, color.b))
